@@ -24,7 +24,7 @@ fun readFile(context: Context, uri: Uri): String {
             content
         }
 
-        return text.lowercase()
+        return text
 
     } catch (e: Exception) {
         return "Ошибка чтения файла"

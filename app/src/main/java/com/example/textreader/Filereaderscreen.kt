@@ -26,7 +26,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.toLowerCase
 
 @Composable
 fun FileReaderScreen() {
@@ -67,11 +68,11 @@ fun FileReaderScreen() {
             Text(
                 text = buildAnnotatedString {
                     append(text.value)
-                    Regex("""\[[^]]+]""").findAll(text.value).forEach {
+                    Regex("""\p{Lu}{2,}""").findAll(text.value).forEach {
                         addStyle(
-                            SpanStyle(fontStyle = FontStyle.Italic),
-                            it.range.first + 1,
-                            it.range.last
+                            SpanStyle(fontWeight = FontWeight.Bold),
+                            it.range.first,
+                            it.range.last + 1
                         )
                     }
                 },

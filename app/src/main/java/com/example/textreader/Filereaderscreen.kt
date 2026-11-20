@@ -54,7 +54,7 @@ fun FileReaderScreen() {
             onClick = { launcher.launch(arrayOf("*/*")) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Открыть файл", fontSize = 18.sp)
+            Text("Открыть файл")
         }
 
         if (loading.value) {
@@ -62,7 +62,6 @@ fun FileReaderScreen() {
         } else {
             Text(
                 text = text.value,
-                fontSize = 16.sp,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 16.dp)

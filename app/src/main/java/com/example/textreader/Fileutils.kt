@@ -13,16 +13,19 @@ fun readFile(context: Context, uri: Uri): String {
             return "Ошибка: файл пустой"
         }
 
-        if (content.contains("<FictionBook")) {
+        val text = if (content.contains("<FictionBook")) {
             var body = content.substringAfter("<body").substringAfter(">")
             body = body.substringBefore("</body>")
             body = body.replace("</p>", "\n\n")
             body = body.replace("</title>", "\n\n")
             body = body.replace(Regex("<[^>]*>"), "")
-            return body.trim()
+            body.trim()
+        } else {
+            content
         }
 
-        return content
+        return text.lowercase()
+
     } catch (e: Exception) {
         return "Ошибка чтения файла"
     }

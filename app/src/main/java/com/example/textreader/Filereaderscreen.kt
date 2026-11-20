@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 
 @Composable
 fun FileReaderScreen() {
@@ -62,7 +65,16 @@ fun FileReaderScreen() {
             CircularProgressIndicator(modifier = Modifier.padding(top = 16.dp))
         } else {
             Text(
-                text = text.value,
+                text = buildAnnotatedString {
+                    append(text.value)
+                    Regex("""\[[^]]+]""").findAll(text.value).forEach {
+                        addStyle(
+                            SpanStyle(fontStyle = FontStyle.Italic),
+                            it.range.first + 1,
+                            it.range.last
+                        )
+                    }
+                },
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 16.dp)
